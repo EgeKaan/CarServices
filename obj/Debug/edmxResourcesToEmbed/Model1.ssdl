@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="servicesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Arac">
+    <Key>
+      <PropertyRef Name="AracID" />
+    </Key>
+    <Property Name="AracID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Plaka" Type="nvarchar" MaxLength="9" />
+    <Property Name="SaseNo" Type="nchar" MaxLength="17" />
+    <Property Name="Marka" Type="nvarchar" MaxLength="16" />
+    <Property Name="Model" Type="nvarchar" MaxLength="20" />
+    <Property Name="ModelYılı" Type="varchar" MaxLength="4" />
+    <Property Name="Km" Type="nvarchar" MaxLength="7" />
+    <Property Name="RuhsatNo" Type="nvarchar" MaxLength="20" />
+    <Property Name="MotorNo" Type="nvarchar" MaxLength="20" />
+    <Property Name="Yakıt" Type="nvarchar" MaxLength="12" />
+    <Property Name="ServiceID" Type="int" />
+    <Property Name="MusteriID" Type="int" />
+  </EntityType>
+  <EntityType Name="Bakım">
+    <Key>
+      <PropertyRef Name="BakımID" />
+    </Key>
+    <Property Name="BakımID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AracID" Type="int" />
+    <Property Name="GirisTarihi" Type="smalldatetime" />
+    <Property Name="CıkısTarihi" Type="smalldatetime" />
+    <Property Name="ToplamTutar" Type="int" />
+    <Property Name="OdemeTuru" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Islem">
+    <Key>
+      <PropertyRef Name="IslemID" />
+    </Key>
+    <Property Name="IslemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Islem" Type="nvarchar(max)" />
+    <Property Name="Tutar" Type="nvarchar" MaxLength="10" />
+    <Property Name="BakımID" Type="int" />
+  </EntityType>
+  <EntityType Name="Login">
+    <Key>
+      <PropertyRef Name="LoginID" />
+    </Key>
+    <Property Name="LoginID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceID" Type="int" />
+    <Property Name="Nickname" Type="nvarchar" MaxLength="20" />
+    <Property Name="Password" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Musteri">
+    <Key>
+      <PropertyRef Name="MusteriID" />
+    </Key>
+    <Property Name="MusteriID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AdSoyad" Type="nvarchar" MaxLength="40" />
+    <Property Name="Tel" Type="nvarchar" MaxLength="11" />
+    <Property Name="Email" Type="nvarchar" MaxLength="40" />
+    <Property Name="TC" Type="nchar" MaxLength="11" />
+    <Property Name="ServiceID" Type="int" />
+    <Property Name="Adres" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Service">
+    <Key>
+      <PropertyRef Name="ServiceID" />
+    </Key>
+    <Property Name="ServiceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="20" />
+    <Property Name="Surname" Type="nvarchar" MaxLength="20" />
+    <Property Name="Adress" Type="nvarchar" MaxLength="50" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="11" />
+    <Property Name="ServiceName" Type="nvarchar" MaxLength="30" />
+    <Property Name="Email" Type="nvarchar" MaxLength="30" />
+    <Property Name="TC" Type="nvarchar" MaxLength="11" />
+    <Property Name="Admin" Type="bit" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_Arac_Musteri">
+    <End Role="Musteri" Type="Self.Musteri" Multiplicity="0..1" />
+    <End Role="Arac" Type="Self.Arac" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Musteri">
+        <PropertyRef Name="MusteriID" />
+      </Principal>
+      <Dependent Role="Arac">
+        <PropertyRef Name="MusteriID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Arac_Service">
+    <End Role="Service" Type="Self.Service" Multiplicity="0..1" />
+    <End Role="Arac" Type="Self.Arac" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Service">
+        <PropertyRef Name="ServiceID" />
+      </Principal>
+      <Dependent Role="Arac">
+        <PropertyRef Name="ServiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Bakım_Arac">
+    <End Role="Arac" Type="Self.Arac" Multiplicity="0..1" />
+    <End Role="Bakım" Type="Self.Bakım" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Arac">
+        <PropertyRef Name="AracID" />
+      </Principal>
+      <Dependent Role="Bakım">
+        <PropertyRef Name="AracID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Islem_Bakım">
+    <End Role="Bakım" Type="Self.Bakım" Multiplicity="0..1" />
+    <End Role="Islem" Type="Self.Islem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bakım">
+        <PropertyRef Name="BakımID" />
+      </Principal>
+      <Dependent Role="Islem">
+        <PropertyRef Name="BakımID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Login_Service">
+    <End Role="Service" Type="Self.Service" Multiplicity="0..1" />
+    <End Role="Login" Type="Self.Login" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Service">
+        <PropertyRef Name="ServiceID" />
+      </Principal>
+      <Dependent Role="Login">
+        <PropertyRef Name="ServiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Musteri_Service">
+    <End Role="Service" Type="Self.Service" Multiplicity="0..1" />
+    <End Role="Musteri" Type="Self.Musteri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Service">
+        <PropertyRef Name="ServiceID" />
+      </Principal>
+      <Dependent Role="Musteri">
+        <PropertyRef Name="ServiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="servicesModelStoreContainer">
+    <EntitySet Name="Arac" EntityType="Self.Arac" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Bakım" EntityType="Self.Bakım" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Islem" EntityType="Self.Islem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Musteri" EntityType="Self.Musteri" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Arac_Musteri" Association="Self.FK_Arac_Musteri">
+      <End Role="Musteri" EntitySet="Musteri" />
+      <End Role="Arac" EntitySet="Arac" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Arac_Service" Association="Self.FK_Arac_Service">
+      <End Role="Service" EntitySet="Service" />
+      <End Role="Arac" EntitySet="Arac" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Bakım_Arac" Association="Self.FK_Bakım_Arac">
+      <End Role="Arac" EntitySet="Arac" />
+      <End Role="Bakım" EntitySet="Bakım" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Islem_Bakım" Association="Self.FK_Islem_Bakım">
+      <End Role="Bakım" EntitySet="Bakım" />
+      <End Role="Islem" EntitySet="Islem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Login_Service" Association="Self.FK_Login_Service">
+      <End Role="Service" EntitySet="Service" />
+      <End Role="Login" EntitySet="Login" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Musteri_Service" Association="Self.FK_Musteri_Service">
+      <End Role="Service" EntitySet="Service" />
+      <End Role="Musteri" EntitySet="Musteri" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

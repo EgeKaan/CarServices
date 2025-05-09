@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7bd39f4fd6324464913d1bdf650831e9" Name="Diagram1">
+        <EntityTypeShape EntityType="servicesModel.Arac" Width="1.5" PointX="5.25" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="servicesModel.Bakım" Width="1.5" PointX="7.5" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="servicesModel.Islem" Width="1.5" PointX="9.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="servicesModel.Login" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="servicesModel.Musteri" Width="1.5" PointX="3" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="servicesModel.Service" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="servicesModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="servicesModel.FK_Arac_Musteri" ManuallyRouted="false" />
+        <AssociationConnector Association="servicesModel.FK_Arac_Service" ManuallyRouted="false" />
+        <AssociationConnector Association="servicesModel.FK_Bakım_Arac" ManuallyRouted="false" />
+        <AssociationConnector Association="servicesModel.FK_Islem_Bakım" ManuallyRouted="false" />
+        <AssociationConnector Association="servicesModel.FK_Login_Service" ManuallyRouted="false" />
+        <AssociationConnector Association="servicesModel.FK_Musteri_Service" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
